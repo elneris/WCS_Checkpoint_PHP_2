@@ -16,7 +16,7 @@
         </div>
         <div class="form-group col-md-6">
             <label for="size">Size (in meter):</label>
-            <input type="text" class="form-control" name="size" id="size" value="{{ beast.size }}"/>
+            <input type="number" class="form-control" name="size" id="size" value="{{ beast.size }}"/>
         </div>
     </div>
     <div class="form-row">
@@ -24,7 +24,7 @@
             <label for="planet">Planet :</label>
             <select name="planet" class="custom-select" id="planet">
                 {%  for planet in planets %}
-                <option value="{{ beast.id_planet }}" {% if planet.id == beast.id_planet %}selected{% endif %} }>{{ planet.name }}</option>
+                <option value="{{ planet.id }}" {% if planet.id == beast.id_planet %}selected{% endif %} }>{{ planet.name }}</option>
                 {% endfor %}
             </select>
         </div>
@@ -32,7 +32,7 @@
             <label for="movies">Movie :</label>
             <select name="movies" class="custom-select" id="movies">
                 {%  for movie in movies %}
-                    <option value="{{ beast.id_movie }}" {% if movie.id == beast.id_movie %}selected{% endif %} }>{{ movie.title }}</option>
+                    <option value="{{ movie.id }}" {% if movie.id == beast.id_movie %}selected{% endif %} }>{{ movie.title }}</option>
                 {% endfor %}
             </select>
         </div>

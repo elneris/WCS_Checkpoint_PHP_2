@@ -63,9 +63,39 @@ class BeastController extends AbstractController
      */
     public function add()  : string
     {
-      // TODO : A creation page where your can add a new beast.
+        $beastManager = new BeastManager();
 
-        return $this->twig->render('Beast/add.html.twig');
+        $errors = [];
+        $success = [];
+
+        if ($_SERVER['REQUEST_METHOD'] = 'POST'){
+var_dump($_POST);
+            if (empty($_POST['name']) || empty($_POST['area']) || empty($_POST['picture'])
+                || empty($_POST['size']) || empty($_POST['planet']) || empty($_POST['movies'])){
+                $errors[] = 'Veuillez Renseigner TOUT les champs';
+            } else {
+                foreach ($_POST as $key => $value){
+                    $_POST[$key] = $this->checkForm($value);
+                }
+
+                $beastManager->insert($_POST);
+                $success[] = 'ajout bien effectués';
+
+            }
+
+        }
+
+        $movieManager = new MovieManager();
+        $movies = $movieManager->selectAll();
+        $planetManager = new PlanetManager();
+        $planets = $planetManager->selectAll();
+
+        return $this->twig->render('Beast/add.html.twig', [
+            'movies' => $movies,
+            'planets' => $planets,
+            'errors' => $errors,
+            'success' => $success
+            ]);
     }
 
 
@@ -77,7 +107,7 @@ class BeastController extends AbstractController
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
-    public function edit(int $id)
+    public function edit(int $id) : string
     {
 
         $beastManager = new BeastManager();

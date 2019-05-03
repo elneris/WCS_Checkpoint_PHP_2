@@ -79,4 +79,28 @@ class BeastManager extends AbstractManager
 
         $statement->execute();
     }
+
+    /**
+     * insert Beast from database.
+     *
+     * @param array $informations
+     *
+     * @return void
+     */
+    public function insert(array $informations):void
+    {
+        // prepared request
+        $statement = $this->pdo->prepare("
+            INSERT INTO $this->table
+            (name, picture, size, area, id_movie, id_planet)
+            VALUES (:name, :picture, :size, :area, :movies, :planet)");
+        $statement->bindValue(':name',$informations['name'],\PDO::PARAM_STR);
+        $statement->bindValue(':picture',$informations['picture'],\PDO::PARAM_STR);
+        $statement->bindValue(':size',$informations['size'],\PDO::PARAM_INT);
+        $statement->bindValue(':area',$informations['area'],\PDO::PARAM_STR);
+        $statement->bindValue(':movies',$informations['movies'],\PDO::PARAM_INT);
+        $statement->bindValue(':planet',$informations['planet'],\PDO::PARAM_INT);
+
+        $statement->execute();
+    }
 }
