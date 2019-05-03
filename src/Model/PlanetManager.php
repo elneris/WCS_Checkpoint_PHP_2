@@ -1,29 +1,17 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: sylvain
- * Date: 07/03/18
- * Time: 18:20
- * PHP version 7
- */
 
 namespace App\Model;
 
-/**
- * Class BeastManager
- * @package Model
- */
-class BeastManager extends AbstractManager
+class PlanetManager extends AbstractManager
 {
-
     /**
      *
      */
-    const TABLE = 'beast';
+    const TABLE = 'planet';
 
 
     /**
-     * BeastManager constructor.
+     * PlanetManager constructor.
      * @param \PDO $pdo
      */
     public function __construct()
@@ -32,21 +20,21 @@ class BeastManager extends AbstractManager
     }
 
     /**
-     * Get movie_id from database join beast.
+     * Get planet_id from database join beast.
      *
      * @param  int $id
      *
      * @return array
      */
-    public function selectMovieByBeastIdMovie(int $id)
+    public function selectPlanetByBeastIdMovie(int $id)
     {
         // prepared request
         $statement = $this->pdo->prepare("
-            SELECT movie.title as title 
+            SELECT planet.name as name 
             FROM $this->table 
-            JOIN movie
-            ON beast.id_movie = movie.id
-            WHERE id_movie=:id");
+            JOIN beast
+            ON beast.id_planet = planet.id
+            WHERE id_planet=:id");
         $statement->bindValue('id', $id, \PDO::PARAM_INT);
         $statement->execute();
 

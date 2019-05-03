@@ -4,6 +4,8 @@
 namespace App\Controller;
 
 use App\Model\BeastManager;
+use App\Model\MovieManager;
+use App\Model\PlanetManager;
 
 /**
  * Class BeastController
@@ -36,9 +38,20 @@ class BeastController extends AbstractController
      */
     public function details(int $id)  : string
     {
-      // TODO : A page which displays all details of a specific beasts.
+        $beastManager = new BeastManager();
+        $beast = $beastManager->selectOneById($id);
 
-        return $this->twig->render('Beast/details.html.twig');
+        $movieManager = new MovieManager();
+        $movie = $movieManager->selectMovieByBeastIdMovie($beast['id_movie']);
+
+        $planetManager = new PlanetManager();
+        $planet = $planetManager->selectPlanetByBeastIdMovie($beast['id_planet']);
+
+        return $this->twig->render('Beast/details.html.twig', [
+            'beast' => $beast,
+            'movie' => $movie,
+            'planet' => $planet
+        ]);
     }
 
 
