@@ -7,8 +7,9 @@
 
     <div class="row">
         <ul class="list">
-            {# movies #}
-            <li>Movie title</li>
+            {% for movie in movies %}
+            <li>{{ movie.title }}</li>
+            {% endfor %}
         </ul>
     </div>
 
