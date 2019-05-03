@@ -57,4 +57,26 @@ class PlanetManager extends AbstractManager
 
         $statement->execute();
     }
+    
+    /**
+     * select planet from database.
+     *
+     * @param int $id
+     *
+     * @return array
+     */
+    public function selectPlanetByBeastIdMovie(int $id)
+    {
+        // prepared request
+        $statement = $this->pdo->prepare("
+            SELECT planet.name as name 
+            FROM $this->table 
+            JOIN beast
+            ON beast.id_planet = planet.id
+            WHERE id_planet=:id");
+        $statement->bindValue(':id', $id, \PDO::PARAM_INT);
+        
+        $statement->execute();
+        return $statement->fetch();
+    }
 }
