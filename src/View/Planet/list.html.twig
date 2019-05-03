@@ -7,7 +7,7 @@
 <div class="row">
   <ul class="list">
     {% for planet in planets %}
-    <li>{{ planet.id }}.   {{ planet.name }}</li>
+    <li><a href="/planet/details/{{ planet.id }}"> {{ planet.id }}.   {{ planet.name }}</a></li>
     {% endfor %}
   </ul>
 </div>
