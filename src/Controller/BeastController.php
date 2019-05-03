@@ -69,7 +69,6 @@ class BeastController extends AbstractController
         $success = [];
 
         if ($_SERVER['REQUEST_METHOD'] = 'POST'){
-var_dump($_POST);
             if (empty($_POST['name']) || empty($_POST['area']) || empty($_POST['picture'])
                 || empty($_POST['size']) || empty($_POST['planet']) || empty($_POST['movies'])){
                 $errors[] = 'Veuillez Renseigner TOUT les champs';
@@ -115,6 +114,10 @@ var_dump($_POST);
         $errors = [];
         $success = [];
 
+        if (isset($_POST['delete'])){
+            $beastManager->delete($id);
+            header('location: /Beast/list');
+        }
         if ($_SERVER['REQUEST_METHOD'] = 'POST'){
 
             if (empty($_POST['name']) || empty($_POST['area']) || empty($_POST['picture'])

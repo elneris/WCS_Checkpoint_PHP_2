@@ -67,4 +67,21 @@ abstract class AbstractManager
 
         return $statement->fetch();
     }
+
+    /**
+     *  delete a row form Database.
+     *
+     * @param int $id
+     *
+     * @return void
+     *
+     */
+    public function delete(int $id):void
+    {
+        // prepared request
+        $statement = $this->pdo->prepare("
+            DELETE FROM $this->table WHERE id = :id");
+        $statement->bindValue('id', $id, \PDO::PARAM_INT);
+        $statement->execute();
+    }
 }
