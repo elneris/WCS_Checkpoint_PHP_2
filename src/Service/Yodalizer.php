@@ -10,7 +10,7 @@ class Yodalizer
 
     public static function yodalizeIt(string $str):string
     {
-        //TODO Write your code here,
-        //TODO And return what we are waiting for at the end...
+        return ucfirst(implode(' ',array_reverse(explode(' ', $str))));
     }
 }
+
