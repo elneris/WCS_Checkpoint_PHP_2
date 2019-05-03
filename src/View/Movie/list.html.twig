@@ -8,12 +8,13 @@
     <div class="row">
         <ul class="list">
             {% for movie in movies %}
-            <li>{{ movie.title }}</li>
+                <li><a href="/movie/details/{{ movie.id }}">{{ movie.title }}</a></li>
             {% endfor %}
         </ul>
     </div>
 
     <nav class="row">
+        <a href="/movie/add">Add a Movie</a>
         <a href="/planet/list">Check the planets</a><br>
         <a href="/beast/list">Check beasts</a><br>
     </nav>
