@@ -52,4 +52,31 @@ class BeastManager extends AbstractManager
 
         return $statement->fetch();
     }
+
+    /**
+     * update Beast from database.
+     *
+     * @param array $informations
+     * @param int $id
+     *
+     * @return void
+     */
+    public function update(array $informations, int $id):void
+    {
+        // prepared request
+        $statement = $this->pdo->prepare("
+            UPDATE $this->table
+            SET name = :name, picture = :picture, size = :size, 
+            area = :area, id_movie = :movies, id_planet = :planet
+            WHERE id = :id");
+        $statement->bindValue(':name',$informations['name'],\PDO::PARAM_STR);
+        $statement->bindValue(':picture',$informations['picture'],\PDO::PARAM_STR);
+        $statement->bindValue(':size',$informations['size'],\PDO::PARAM_INT);
+        $statement->bindValue(':area',$informations['area'],\PDO::PARAM_STR);
+        $statement->bindValue(':movies',$informations['movies'],\PDO::PARAM_INT);
+        $statement->bindValue(':planet',$informations['planet'],\PDO::PARAM_INT);
+        $statement->bindValue(':id',$id,\PDO::PARAM_INT);
+
+        $statement->execute();
+    }
 }

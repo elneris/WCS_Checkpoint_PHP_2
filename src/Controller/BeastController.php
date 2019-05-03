@@ -70,14 +70,63 @@ class BeastController extends AbstractController
 
 
     /**
+     *
+     * @param int $id
+     *
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
+    public function edit(int $id)
+    {
+
+        $beastManager = new BeastManager();
+
+        $errors = [];
+        $success = [];
+
+        if ($_SERVER['REQUEST_METHOD'] = 'POST'){
+
+            if (empty($_POST['name']) || empty($_POST['area']) || empty($_POST['picture'])
+            || empty($_POST['size']) || empty($_POST['planet']) || empty($_POST['movies'])){
+                $errors[] = 'Veuillez Renseigner TOUT les champs';
+            } else {
+                foreach ($_POST as $key => $value){
+                    $_POST[$key] = $this->checkForm($value);
+                }
+
+                $beastManager->update($_POST, $id);
+                $success[] = 'Changement bien effectués';
+
+            }
+
+        }
+
+        $beast = $beastManager->selectOneById($id);
+        $movieManager = new MovieManager();
+        $movies = $movieManager->selectAll();
+        $planetManager = new PlanetManager();
+        $planets = $planetManager->selectAll();
+
+        return $this->twig->render('Beast/edit.html.twig',[
+            'beast' => $beast,
+            'movies' => $movies,
+            'planets' => $planets,
+            'errors' => $errors,
+            'success' => $success
+        ]);
+    }
+
+    /**
+     *
+     * @param string $str
      * @return string
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
-    public function edit() : string
+    public function checkForm(string $str):string
     {
-      // TODO : An edition page where your can add a new beast.
-        return $this->twig->render('Beast/edit.html.twig');
+        return htmlspecialchars(trim($str));
     }
 }
