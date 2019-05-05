@@ -1,6 +1,10 @@
-# Checkpoint 2 | May the force be with you | PHP0219
+# Checkpoint PHP 2 | May the force be with you : 03/05/19
 
-## Description
+## Les checkpoints ont été des étapes clés de ma formation à La wild Code School
+
+( aucune modification ultérieur ne viendra altérer ce repo, pour montrer ma progression au cours de cette formation )
+
+## Consignes
 
 This repository is the beginning of your new month challenge based on your favorite PHP MVC structure.
 
